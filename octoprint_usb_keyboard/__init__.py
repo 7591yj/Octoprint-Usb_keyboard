@@ -1,11 +1,14 @@
 # coding=utf-8
 from __future__ import absolute_import
 import octoprint.plugin
+
 import re
 import json
 import os
 import uuid
 import time
+import json
+
 from .usb_keyboard.listener import KeyboardListenerThread
 from octoprint.events import eventManager
 
@@ -33,26 +36,24 @@ class UsbKeyboardPlugin(
 	def _key_event(self, event, payload):
 		key = payload.get("key")
 		key_state = payload.get("key_state")
-		self._logger.info(f"Key {key} {key_state}")
 
 		# Placeholder: Define key actions here
 		if key_state == "pressed":
 			self._handle_key_press(key)
 
 	def _handle_key_press(self, key):
+		keymap = {}
+
+		with open("octoprint_usb_keyboard/usb_keyboard/util/keys/example.json") as json_file:
+			keymap = json.load(json_file)
+			json_file.close()
+
 		self._logger.info(f"Key pressed: {key}")
 
-		# Execute specific actions based on key press
-		if key == "example_key":
-			self._logger.info("Example action triggered!")
-
-		if key == "a":
-			self._printer.commands("G28")
-			self._logger.info("Local: Homing all axes (G28)")
-
-		if key == "b":
-			self._printer.commands("M114")
-			self._logger.info("Local: Get current position (M114)")
+		if key in keymap:
+			key_action = keymap[key]
+			self._printer.commands(key_action.get("command"))
+			self._logger.info(f"Local: {key_action.get('action')}")
 
 	def gcode_received(self, comm, line, *args, **kwargs):
 		self._logger.info(f"G-code response received: {line}")
@@ -94,10 +95,10 @@ class UsbKeyboardPlugin(
 				displayName="USB Keyboard Plugin",
 				displayVersion=self._plugin_version,
 				type="github_release",
-				user="your_github_username",
+				user="7591yj",
 				repo="OctoPrint-Usb_keyboard",
 				current=self._plugin_version,
-				pip="https://github.com/your_github_username/OctoPrint-Usb_keyboard/archive/{target_version}.zip"
+				pip="https://github.com/7591yj/OctoPrint-Usb_keyboard/archive/{target_version}.zip"
 			)
 		)
 
