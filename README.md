@@ -1,5 +1,7 @@
 # OctoPrint-Usb_keyboard
 
+> Please note that this repo may get deleted or changed, due to plans of building similar project from scratch.
+
 Enables users to use a USB keyboard to control their printer through Octoprint.
 
 ## Setup
