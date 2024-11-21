@@ -1,0 +1,38 @@
+{
+  "a": {
+    "action": "Homing all axes",
+    "command": "G28"
+  },
+  "b": {
+    "action": "Get current position",
+    "command": "M114"
+  },
+  "c": {
+    "action": "Report temperature",
+    "command": "M105"
+  },
+  "d": {
+    "action": "Endstop status",
+    "command": "M119"
+  },
+  "e": {
+    "action": "Move test: G1 F3000",
+    "command": "G1 F3000"
+  },
+  "f": {
+    "action": "Set speed to 100%",
+    "command": "M220 S100"
+  },
+  "g": {
+    "action": "Set extruder to 100%",
+    "command": "M221 S100"
+  },
+  "h": {
+    "action": "Beep",
+    "command": "M300 S300 P1000"
+  },
+  "i": {
+    "action": "Move test: G1 X50 Y50",
+    "command": "G1 X50 Y50"
+  }
+}
